@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.section {
+  @apply py-24 md:py-32 lg:py-40;
+}
+
 /* styles/globals.css */
 :root {
   --bg-color-light: #ffffff;
