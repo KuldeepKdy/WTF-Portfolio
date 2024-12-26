@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import Provider from "./Provider";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/sections/Navbar";
 
 import { Archivo } from "next/font/google";
 import GlobalContextProvider from "@/hooks/GlobalContextProvider";
