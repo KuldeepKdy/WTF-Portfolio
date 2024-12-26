@@ -31,16 +31,26 @@ const Projects = () => {
     },
   ];
   return (
-    <section className="py-24">
+    <section className="py-24 md:py-32 lg:py-40">
       <div className="container">
-        <h2 className="text-4xl">Selected works</h2>
-        <div className="mt-10">
+        <h2 className="text-4xl md:text-7xl lg:text-8xl">Selected works</h2>
+        <div className="mt-10 md:mt-16 lg:mt-20">
           {projects.map(({ name, image }) => (
-            <Link href="#" key={name}>
-              <div className="border-t border-stone-600 border-dotted py-6">
-                <Image src={image} alt={name} className="w-full" />
-                <div className="mt-8 flex justify-between ">
-                  <h3 className="text-2xl">{name}</h3>
+            <Link
+              href="#"
+              key={name}
+              className="border-t last:border-b border-stone-600 border-dotted py-6 md:py-8 lg:py-10 flex flex-col"
+            >
+              <div className="">
+                <div className="aspect-video md:hidden">
+                  <Image
+                    src={image}
+                    alt={name}
+                    className="size-full object-cover"
+                  />
+                </div>
+                <div className="mt-8 md:mt-0 flex justify-between items-center">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl">{name}</h3>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
