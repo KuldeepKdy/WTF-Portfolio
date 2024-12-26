@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* styles/globals.css */
-/* :root {
+:root {
   --bg-color-light: #ffffff;
   --text-color-light: #000000;
   --bg-color-dark: #1a1a1a;
@@ -27,4 +27,4 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-} */
+}

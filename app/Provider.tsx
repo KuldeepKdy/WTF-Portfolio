@@ -9,7 +9,7 @@ interface ProviderProps {
 export default function Provider({ children }: ProviderProps) {
   return (
     // <ThemeProvider defaultTheme="system" attribute="class">
-    <ThemeProvider defaultTheme="light" attribute="class">
+    <ThemeProvider defaultTheme="system" attribute="class">
       {children}
     </ThemeProvider>
   );

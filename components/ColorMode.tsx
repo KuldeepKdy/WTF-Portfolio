@@ -1,3 +1,5 @@
+"use client";
+
 import ModeSwitch from "./ModeSwitch";
 
 const ColorMode = () => {
