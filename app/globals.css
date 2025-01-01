@@ -6,6 +6,11 @@
   @apply py-24 md:py-32 lg:py-40;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
+
 /* styles/globals.css */
 :root {
   --bg-color-light: #ffffff;
