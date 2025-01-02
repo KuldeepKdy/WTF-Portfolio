@@ -35,6 +35,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [topLineScope, topLineAnimate] = useAnimate();
   const [bottomLineScope, bottomLineAnimate] = useAnimate();
+  const [navScope, navAnimate] = useAnimate();
 
   useEffect(() => {
     if (isOpen) {
@@ -46,6 +47,7 @@ function Navbar() {
         [bottomLineScope.current, { translateY: -4 }],
         [bottomLineScope.current, { rotate: -45 }],
       ]);
+      navAnimate(navScope.current, { height: "100%" }, { duration: 0.7 });
     } else {
       topLineAnimate([
         [topLineScope.current, { translateY: 0 }],
@@ -55,6 +57,7 @@ function Navbar() {
         [bottomLineScope.current, { translateY: 0 }],
         [bottomLineScope.current, { rotate: 0 }],
       ]);
+      navAnimate(navScope.current, { height: 0 });
     }
     // Add or remove the "no-scroll" class based on navbar state
     if (isOpen) {
@@ -68,16 +71,25 @@ function Navbar() {
     topLineScope,
     bottomLineAnimate,
     bottomLineScope,
+    navAnimate,
+    navScope,
   ]);
 
   return (
     <header>
-      <div className="fixed inset-0 w-full h-full bg-stone-900">
+      <div
+        className="fixed inset-0 w-full h-0 overflow-hidden bg-stone-900"
+        ref={navScope}
+      >
         <nav className="mt-20 flex flex-col">
           {navItems.map(({ label, href }: NavItem) => (
-            <a href={href} key={label} className="text-stone-200 ">
+            <a
+              href={href}
+              key={label}
+              className="text-stone-200 border-t last:border-b border-stone-800 py-8"
+            >
               <div className="container !max-w-full flex items-center justify-between">
-                <span>{label}</span>
+                <span className="text-3xl">{label}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
