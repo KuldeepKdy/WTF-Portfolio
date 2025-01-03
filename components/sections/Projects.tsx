@@ -31,7 +31,7 @@ const Projects = () => {
     },
   ];
   return (
-    <section className="section">
+    <section className="section" id="projects">
       <div className="container">
         <h2 className="text-4xl md:text-7xl lg:text-8xl">Selected works</h2>
         <div className="mt-10 md:mt-16 lg:mt-20">

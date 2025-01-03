@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import Button from "../Button";
 import { motion, useAnimate } from "framer-motion";
 
@@ -74,6 +74,16 @@ function Navbar() {
     navAnimate,
     navScope,
   ]);
+  const handleClickMobileNavItem = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+    const url = new URL(e.currentTarget.href);
+    const hash = url.hash;
+    const target = document.querySelector(hash);
+
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <header>
@@ -86,10 +96,13 @@ function Navbar() {
             <a
               href={href}
               key={label}
-              className="text-stone-200 border-t last:border-b border-stone-800 py-8"
+              className="text-stone-200 border-t last:border-b border-stone-800 py-8 group/nav-item relative isolate"
+              onClick={handleClickMobileNavItem}
             >
               <div className="container !max-w-full flex items-center justify-between">
-                <span className="text-3xl">{label}</span>
+                <span className="text-3xl group-hover/nav-item:pl-4 transition-all duration-500">
+                  {label}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -105,6 +118,7 @@ function Navbar() {
                   />
                 </svg>
               </div>
+              <div className="absolute w-full h-0 bg-stone-800 group-hover/nav-item:h-full transition-all duration-500 bottom-0 -z-10"></div>
             </a>
           ))}
         </nav>
