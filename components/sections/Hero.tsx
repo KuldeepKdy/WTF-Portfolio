@@ -116,13 +116,13 @@ export default function Hero() {
         </div>
         <div className="md:col-span-5 w-full overflow-clip md:overflow-visible relative">
           <motion.div
-            className={`mt-20 md:mt-0 md:size-full md:absolute md:right-0   `}
+            className={`mt-20 md:mt-0  md:size-full md:absolute md:right-0   `}
             style={{ width: portraitWidth }}
           >
             <Image
               src={heroImage}
               alt="My Portrait"
-              className=" md:size-full  relative  object-cover"
+              className=" md:size-full size-[45%] relative  object-cover"
             />
           </motion.div>
         </div>
