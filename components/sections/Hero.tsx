@@ -3,11 +3,24 @@ import Image from "next/image";
 import heroImage from "@/assets/images/hero-image.jpg";
 import Button from "../Button";
 import SplitType from "split-type";
-import { motion, stagger, useAnimate } from "framer-motion";
-import { useEffect } from "react";
+import {
+  motion,
+  stagger,
+  useAnimate,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
   const [titleScope, titleAnimate] = useAnimate();
+  const scrollingDiv = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollingDiv,
+    offset: ["start end", "end end"],
+  });
+
+  const portraitWidth = useTransform(scrollYProgress, [0, 1], ["100%", "240%"]);
 
   useEffect(() => {
     new SplitType(titleScope.current, {
@@ -28,7 +41,7 @@ export default function Hero() {
 
   return (
     <section>
-      <div className="grid md:grid-cols-12 md:h-screen items-stretch">
+      <div className="grid md:grid-cols-12 md:h-screen items-stretch sticky top-0">
         <div className="md:col-span-7 flex flex-col justify-center">
           <div className="container !max-w-full">
             <motion.h1
@@ -101,16 +114,20 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="md:col-span-5">
-          <div className="mt-20 md:mt-0 md:h-full">
+        <div className="md:col-span-5 relative">
+          <motion.div
+            className={`mt-20 md:mt-0 md:size-full md:absolute md:right-0 `}
+            style={{ width: portraitWidth }}
+          >
             <Image
               src={heroImage}
               alt="My Portrait"
               className="size-full object-cover"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
+      <div className="md:h-[200vh]" ref={scrollingDiv}></div>
     </section>
   );
 }
