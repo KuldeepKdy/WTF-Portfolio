@@ -1,3 +1,8 @@
+"use client";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
 const faqs = [
   {
     question: "How long does it take to build a website?",
@@ -22,21 +27,42 @@ const faqs = [
 ];
 
 const Faqs = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   return (
     <section className="section" id="faqs">
       <div className="container">
         <h2 className="text-4xl md:text-7xl lg:text-8xl">FAQs</h2>
         <div className="mt-10 md:mt-16 lg:mt-20">
-          {faqs.map(({ question, answer }: any) => (
+          {faqs.map(({ question, answer }, faqIndex) => (
             <div
               key={question}
-              className="border-t border-stone-400 border-dotted py-6 md:py-8 lg:py-10 last:border-b"
+              className="group border-t border-stone-400 border-dotted py-6 md:py-8 lg:py-10 last:border-b relative isolate"
+              onClick={() => {
+                if (faqIndex === selectedIndex) {
+                  setSelectedIndex(null);
+                } else {
+                  setSelectedIndex(faqIndex);
+                }
+              }}
             >
-              <div className="flex items-center justify-between gap-4 ">
+              <div
+                className={`absolute h-0 w-full bg-stone-300 -z-10 group-hover:h-full bottom-0 left-0 transition-all duration-700 ${
+                  faqIndex === selectedIndex && "h-full"
+                }`}
+              ></div>
+              <div
+                className={`flex items-center justify-between gap-4 transition-all duration-700 group-hover:px-8 ${
+                  faqIndex === selectedIndex && "lg:px-8"
+                }`}
+              >
                 <div className="text-2xl md:text-3xl lg:text-4xl">
                   {question}
                 </div>
-                <div className="inline-flex items-center justify-center size-11 border border-stone-400 rounded-full shrink-0">
+                <div
+                  className={`inline-flex items-center bg-stone-200 justify-center size-11 border border-stone-400 rounded-full shrink-0 transition duration-300 ${
+                    faqIndex === selectedIndex && "rotate-45"
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -53,6 +79,19 @@ const Faqs = () => {
                   </svg>
                 </div>
               </div>
+              <AnimatePresence>
+                {faqIndex === selectedIndex && (
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: "auto" }}
+                    exit={{ height: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="overflow-hidden px-8"
+                  >
+                    <p className="text-xl mt-4">{answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
