@@ -2,9 +2,14 @@
 import image1 from "@/assets/images/testimonial-1.jpg";
 import image2 from "@/assets/images/testimonial-2.jpg";
 import image3 from "@/assets/images/testimonial-3.jpg";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Testimonial from "../Testimonial";
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -47,7 +52,16 @@ const Testimonials = () => {
   const transformTop = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const transformBottom = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
 
-  const testimonialIndex = 0;
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  const handleClickNext = () => {
+    setTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
+  const handleClickPrev = () => {
+    setTestimonialIndex(
+      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+    );
+  };
   return (
     <section className="section" id="testimonials">
       <h2
@@ -66,7 +80,7 @@ const Testimonials = () => {
       </h2>
       <div className="container">
         <div className="mt-20">
-          <motion.div whileInView={{}}>
+          <AnimatePresence mode="wait" initial={false}>
             {testimonials.map(
               ({ name, company, role, quote, image, imagePositionY }, index) =>
                 index === testimonialIndex && (
@@ -81,10 +95,13 @@ const Testimonials = () => {
                   />
                 )
             )}
-          </motion.div>
+          </AnimatePresence>
         </div>
         <div className="flex gap-4 mt-6 lg:mt-10">
-          <button className="border border-stone-400 size-11 inline-flex items-center justify-center rounded-full">
+          <button
+            className="border border-stone-400 hover:bg-red-orange-500 hover:text-white hover:border-red-500 transition-all duration-300 size-11 inline-flex items-center justify-center rounded-full"
+            onClick={handleClickPrev}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -100,7 +117,10 @@ const Testimonials = () => {
               />
             </svg>
           </button>
-          <button className="border border-stone-400 size-11 inline-flex items-center justify-center rounded-full">
+          <button
+            onClick={handleClickNext}
+            className="border border-stone-400 hover:bg-red-orange-500 hover:text-white hover:border-red-500 transition-all duration-300 size-11 inline-flex items-center justify-center rounded-full"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
